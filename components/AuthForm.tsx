@@ -5,11 +5,11 @@ import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import FormField from "./FormField";
+import FormField from "@/components/FormField";
 
 import { Button } from "@/components/ui/button"
 import {Form} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+
 import { useRouter } from "next/navigation";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/Firebase/client";
@@ -53,12 +53,12 @@ const AuthForm = ({type}:{type:FormType}) => {
         email,
         password,
       })
-      if(!result.success) {
+      if(!result?.success) {
         toast.error(result?.message);
         return;
       }
 
-      toast.success('Account created successfully. PLease sign in.');
+      toast.success('Account created successfully. Please sign in.');
       router.push('/sign-in')
      
     }else{
