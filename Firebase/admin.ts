@@ -1,7 +1,5 @@
-if (typeof window !== "undefined") {
-    throw new Error("Firebase Admin should only be used server-side");
-  }
-  
+
+
 import {getApps} from 'firebase-admin/app';
 import { initializeApp, cert } from 'firebase-admin/app';
 import {getAuth} from 'firebase-admin/auth';
