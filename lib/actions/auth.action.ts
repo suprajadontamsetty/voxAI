@@ -68,14 +68,14 @@ export async function signIn(params: SignInParams){
 }
 
 export async function setSessionCookie(idToken: string){
-  const cookieStore = await cookies();
+  
 
   const sessionCookie = await auth.createSessionCookie(idToken, {
-    expiresIn: 60 * 60 * 24 * 7 * 1000,
+    expiresIn: ONE_WEEK * 1000,
   });
 
-
-  cookieStore.set('session' , sessionCookie, {
+console.log("Generated Session Cookie", sessionCookie);
+ await cookies().set('session' , sessionCookie, {
     maxAge: ONE_WEEK,
     httpOnly: true,
     secure : process.env.NODE_ENV === 'production',
@@ -87,7 +87,12 @@ export async function setSessionCookie(idToken: string){
 }
 
 export async function getCurrentUser(): Promise<User | null> {
+
+  
+
   const cookieStore = await cookies();
+
+  console.log("All Cookies:", cookieStore().getAll());
 
   const sessionCookie = cookieStore.get('session')?.value;
 
