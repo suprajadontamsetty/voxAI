@@ -4,8 +4,8 @@ import { cookies } from 'next/headers';
 import { auth } from '@/Firebase/admin'; // Ensure the correct import path
 
 export async function middleware(request: NextRequest) {
-    const cookieStore = cookies();
-    const sessionCookie = cookieStore.get('session')?.value;
+    const cookieStore = await cookies();
+    const sessionCookie = (await cookieStore.get('session'))?.value;
 
     if (!sessionCookie) {
         // Redirect unauthenticated users to login
