@@ -50,7 +50,7 @@ export async function signUp(params: SignUpParams) {
       message: "Account created successfully. Please sign in.",
     };
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error creating user", error);
    
     if (typeof error === "object" && error !== null && "code" in error) {
     // Handle Firebase specific errors

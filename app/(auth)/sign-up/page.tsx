@@ -5,4 +5,4 @@ const page = () => {
   return <AuthForm type = "sign-up"/>
 }
 
-export default page
+export default page;

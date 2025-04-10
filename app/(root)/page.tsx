@@ -8,10 +8,10 @@ import { getCurrentUser } from '@/lib/actions/auth.action';
 import { getInterviewsByUserId,getLatestInterviews } from '@/lib/actions/general.action';
 
 
-const Page=async()=> {
+async function Home() {
   const user= await getCurrentUser();
 
-  const[userInterviews,latestInterviews]=await Promise.all([
+  const[userInterviews,allInterview]=await Promise.all([
     await  getInterviewsByUserId(user?.id!),
     await  getLatestInterviews({userId:user?.id!})
   ]);
@@ -20,8 +20,8 @@ const Page=async()=> {
    
 
 
-  const hasPastInterviews=userInterviews?.length>0;
-  const hasUpcomingInterviews= latestInterviews?.length>0;
+  const hasPastInterviews=userInterviews?.length!>0;
+  const hasUpcomingInterviews= allInterview?.length!>0;
   return (
     <>
         <section className='card-cta'>
@@ -72,9 +72,9 @@ const Page=async()=> {
 
         <section className='flex flex-col gap-6 mt-8'>
            <h2>Take an Interview</h2>
-          <div className='Interviews-section flex flex-col gap-4'>
+          <div className='Interviews-section'>
              {hasUpcomingInterviews?(
-             latestInterviews?.map((interview)=>(
+             allInterview?.map((interview)=>(
               <InterviewCard 
                key={interview.id}
                userId={user?.id}
@@ -87,7 +87,7 @@ const Page=async()=> {
              ))
             ):(
 
-             <p>There are no new interviews available</p>
+             <p>There are no interviews available</p>
              )}
 
           </div>
@@ -98,4 +98,4 @@ const Page=async()=> {
   );
 }
 
-export default Page;
+export default Home;
